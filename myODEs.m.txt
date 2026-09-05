@@ -1,0 +1,72 @@
+function dSdt = myODEs(t, S, enzyme_functions, kcat1, kcat2, kcat3, kcat4, kcat5, kcat6, km1, km2, km3, km4, km5, km6)
+
+
+E1=enzyme_functions{1}(round(t)+1);
+E2=enzyme_functions{2}(round(t)+1);
+E3=enzyme_functions{3}(round(t)+1);
+E4=enzyme_functions{4}(round(t)+1);
+E5=enzyme_functions{5}(round(t)+1);
+E6=enzyme_functions{6}(round(t)+1);
+
+if E1<0
+    E1=0;
+end
+if E2<0
+    E2=0;
+end
+if E3<0
+    E3=0;
+end
+if E4<0
+    E4=0;
+end
+if E5<0
+    E5=0;
+end
+if E6<0
+    E6=0;
+end
+
+y1=S(1);
+y2=S(2);
+y3=S(3);
+y4=S(4);
+y5=S(5);
+y6=S(6);
+y7=S(7);
+
+if S(1)<0
+    y1=0;
+end
+if S(2)<0
+    y2=0;
+end
+if S(3)<0
+    y3=0;
+end
+if S(4)<0
+    y4=0;
+end
+if S(5)<0
+    y5=0;
+end
+if S(6)<0
+    y6=0;
+end
+if S(7)<0
+    y7=0;
+end
+
+
+dy1dt= (1e4*3) - (kcat1*E1*y1/(km1+y1)) - (kcat3*E3*y1/(km3+y1)) - (kcat5*E5*y1/(km5+y1));
+dy2dt= (kcat1*E1*y1/(km1+y1)) - (kcat2*E2*y2/(km2+y2));
+dy3dt= (kcat2*E2*y2/(km2+y2));
+dy4dt= (kcat3*E3*y1/(km3+y1)) - (kcat4*E4*y4/(km4+y4));
+dy5dt= (kcat4*E4*y4/(km4+y4));
+dy6dt= (kcat5*E5*y1/(km5+y1)) - (kcat6*E6*y6/(km6+y6));
+dy7dt= (kcat6*E6*y6/(km6+y6));
+
+dSdt = [dy1dt; dy2dt; dy3dt; dy4dt; dy5dt; dy6dt; dy7dt]; 
+
+end
+

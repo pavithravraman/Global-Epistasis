@@ -1,0 +1,299 @@
+clc
+clear all
+close all
+
+tot_tdiv=[];
+t_all=[];
+S_all=[];
+max_t=[];
+
+
+for number=1:20 %the number of strains in which fitness effect is tested
+    
+%parameters of the strain    
+t1(number)=0.5+(rand*0.5);
+t2(number)=0.5+(rand*0.5);
+t3(number)=0.5+(rand*0.5);
+t4(number)=0.5+(rand*0.5);
+t5(number)=0.5+(rand*0.5);
+t6(number)=0.5+(rand*0.5);
+
+t7(number)=0.5+(rand*4.5);
+t8(number)=0.5+(rand*4.5);
+t9(number)=0.5+(rand*4.5);
+t10(number)=0.5+(rand*4.5);
+t11(number)=0.5+(rand*4.5);
+t12(number)=0.5+(rand*4.5);
+
+k1cat1(number)=1+(99*rand);
+k2cat2(number)=1+(99*rand);
+k3cat3(number)=1+(99*rand);
+k4cat4(number)=1+(99*rand);
+k5cat5(number)=1+(99*rand);
+k6cat6(number)=1+(99*rand);
+
+k1m1(number)=6022+(596178*rand);
+k2m2(number)=6022+(596178*rand);
+k3m3(number)=6022+(596178*rand);
+k4m4(number)=6022+(596178*rand);
+k5m5(number)=6022+(596178*rand);
+k6m6(number)=6022+(596178*rand);
+
+S_3=[];
+S_5=[];
+S_7=[];
+div_t=[];
+
+for j=1:25 %the number of backgrounds in each strain in which we test the fitness effect of the mutation
+    
+ mut=1;
+    
+   to_1(number,j)=t1(number);
+   to_2(number,j)=0.5+(0.5*rand); %Cells in this strain vary in ton2, and the mutation of interest is in ton1
+   to_3(number,j)=t3(number);
+   to_4(number,j)=t4(number);
+   to_5(number,j)=t5(number);
+   to_6(number,j)=t6(number);
+
+   tf_2(number,j)=t8(number);
+   tf_1(number,j)=t7(number);
+   tf_3(number,j)=t9(number);
+   tf_4(number,j)=t10(number);
+   tf_5(number,j)=t11(number);
+   tf_6(number,j)=t12(number);
+ 
+   k1cat(number,j)=k1cat1(number);
+   kcat1=k1cat(number,j);
+   k2cat(number,j)=k2cat2(number);
+   kcat2=k2cat(number,j);
+   k3cat(number,j)=k3cat3(number);
+   kcat3=k3cat(number,j);
+   k4cat(number,j)=k4cat4(number);
+   kcat4=k4cat(number,j);
+   k5cat(number,j)=k5cat5(number);
+   kcat5=k5cat(number,j);
+   k6cat(number,j)=k6cat6(number);
+   kcat6=k6cat(number,j);
+
+   k1m(number,j)=k1m1(number);
+   km1=k1m(number,j);
+   k2m(number,j)=k2m2(number);
+   km2=k2m(number,j);
+   k3m(number,j)=k3m3(number);
+   km3=k3m(number,j);
+   k4m(number,j)=k4m4(number);
+   km4=k4m(number,j);
+   k5m(number,j)=k5m5(number);
+   km5=k5m(number,j);
+   k6m(number,j)=k6m6(number);
+   km6=k6m(number,j);
+   
+   while mut<=2
+    
+      tdiv=[];
+      if mut==1
+      to_1(number,j)=0.5; % in any genotype, fitness is first measured for when ton1=0.5, and then when ton1=1
+      else
+      to_1(number,j)=1;
+      end
+  
+for gen=1:101 % number of cells in which we test the fitness effect
+    
+    if gen==1
+        ts1=0;
+        e1inh=[];
+        e2inh=[];
+        e3inh=[];
+        e4inh=[];
+        e5inh=[];
+        e6inh=[];
+        m1inh=[];
+        m2inh=[];
+        m3inh=[];
+        m4inh=[];
+        m5inh=[];
+        m6inh=[];
+        e1inht=[];
+        e2inht=[];
+        e3inht=[];
+        e4inht=[];
+        e5inht=[];
+        e6inht=[];
+        m1inht=[];
+        m2inht=[];
+        m3inht=[];
+        m4inht=[];
+        m5inht=[];
+        m6inht=[];
+        S1=[];
+        S2=[];
+        S3=[];
+        S4=[];
+        S5=[];
+        S6=[];
+        S7=[];
+        
+    else
+        ts1=tdiv(gen-1);
+    end
+
+    [gent_m1,life_m1,gent_e1,life_e1,m1t,m1n,E1t,E1n]=enzyme_gen(m1inh,e1inh,to_1(number,j),tf_1(number,j),ts1);
+    [gent_m2,life_m2,gent_e2,life_e2,m2t,m2n,E2t,E2n]=enzyme_gen(m2inh,e2inh,to_2(number,j),tf_2(number,j),ts1);      
+    [gent_m3,life_m3,gent_e3,life_e3,m3t,m3n,E3t,E3n]=enzyme_gen(m3inh,e3inh,to_3(number,j),tf_3(number,j),ts1);
+    [gent_m4,life_m4,gent_e4,life_e4,m4t,m4n,E4t,E4n]=enzyme_gen(m4inh,e4inh,to_4(number,j),tf_4(number,j),ts1);
+    [gent_m5,life_m5,gent_e5,life_e5,m5t,m5n,E5t,E5n]=enzyme_gen(m5inh,e5inh,to_5(number,j),tf_5(number,j),ts1);
+    [gent_m6,life_m6,gent_e6,life_e6,m6t,m6n,E6t,E6n]=enzyme_gen(m6inh,e6inh,to_6(number,j),tf_6(number,j),ts1);
+
+    pairs = {{E1t,E1n},{E2t,E2n}, {E3t,E3n}, {E4t,E4n}, {E5t,E5n}, {E6t,E6n}};
+
+    m_pairs = {{m1t,m1n},{m2t,m2n},{m3t,m3n},{m4t,m4n},{m5t,m5n},{m6t,m6n}};
+    m_functions = cell(size(m_pairs));
+
+    enzyme_functions = cell(size(pairs));
+
+for i = 1:numel(pairs)
+    time = pairs{i}{1};
+    enzyme_count = pairs{i}{2};
+    if gen==1
+        tmax=4500000;
+    else
+         tmax=tdiv(gen-1)*2;
+    end
+    time_interp = ts1:0.1:tmax;
+    enzyme_functions{i} = interp1(time, enzyme_count, time_interp, 'linear');
+end
+
+tspan=[ts1 ts1+1000000];
+
+if gen==1
+    initial_condition = [0; 0; 0; 0; 0; 0; 0]; % Initial condition
+else
+    initial_condition = [S1(gen-1)/2; S2(gen-1)/2; S3(gen-1)/2; S4(gen-1)/2; S5(gen-1)/2; S6(gen-1)/2; S7(gen-1)/2];
+end
+
+fun=@(t, S) myODEs(t, S, enzyme_functions, kcat1, kcat2, kcat3, kcat4, kcat5, kcat6, km1, km2, km3, km4, km5, km6);
+options = odeset('Events', @(t, S) stopEvent(t, S, enzyme_functions));
+%[t, S] = ode45(@(t, S) myODEs(t, S, enzyme_functions,fun), tspan, initial_condition, options);
+[t, S] = ode45(fun, tspan, initial_condition, options);
+
+
+S1(gen)=S(end,1);
+S2(gen)=S(end,2);
+S3(gen)=S(end,3);
+S4(gen)=S(end,4);
+S5(gen)=S(end,5);
+S6(gen)=S(end,6);
+S7(gen)=S(end,7);
+
+tdiv(gen)=t(end);
+
+%for additional calculations if necessary
+
+S_3(j,gen)=S3(gen);
+S_5(j,gen)=S5(gen);
+S_7(j,gen)=S7(gen);
+div_t(j,gen)=tdiv(gen);
+%
+
+t_all=[t_all; t];
+S_all=[S_all; S];
+
+m1t=m1t(m1t<tdiv(end));
+if length(m1t)>0
+m1inh=floor(m1n(length(m1t))/2);
+else 
+    m1inh=0;
+end
+
+m2t=m2t(m2t<tdiv(end));
+if length(m2t)>0
+m2inh=floor(m2n(length(m2t))/2);
+else 
+    m2inh=0;
+end
+
+m3t=m3t(m3t<tdiv(end));
+    if length(m3t)>0
+m3inh=floor(m3n(length(m3t))/2);
+    else
+        m3inh=0;
+    end
+
+m4t=m4t(m4t<tdiv(end));
+    if length(m4t)>0
+m4inh=floor(m4n(length(m4t))/2);
+    else 
+        m4inh=0;
+    end
+
+
+m5t=m5t(m5t<tdiv(end));
+    if length(m5t)>0
+m5inh=floor(m5n(length(m5t))/2);
+    else 
+        m5inh=0;
+    end
+
+m6t=m6t(m6t<tdiv(end));
+    
+    if length(m6t)>0
+m6inh=floor(m6n(length(m6t))/2);
+    else
+        m6inh=0;
+    end
+    
+    
+    E1t=E1t(E1t<tdiv(end));
+if length(E1t)>0
+e1inh=floor(E1n(length(E1t))/2);
+else 
+    e1inh=0;
+end
+
+E2t=E2t(E2t<tdiv(end));
+if length(E2t)>0
+e2inh=floor(E2n(length(E2t))/2);
+else 
+    e2inh=0;
+end
+
+
+E3t=E3t(E3t<tdiv(end));
+    if length(E3t)>0
+e3inh=floor(E3n(length(E3t))/2);
+    else
+        e3inh=0;
+    end
+
+E4t=E4t(E4t<tdiv(end));
+    if length(E4t)>0
+e4inh=floor(E4n(length(E4t))/2);
+    else 
+        e4inh=0;
+    end
+
+
+E5t=E5t(E5t<tdiv(end));
+    if length(E5t)>0
+e5inh=floor(E5n(length(E5t))/2);
+    else 
+        e5inh=0;
+    end
+
+E6t=E6t(E6t<tdiv(end));
+    
+    if length(E6t)>0
+e6inh=floor(E6n(length(E6t))/2);
+    else
+        e6inh=0;
+    end
+end
+   
+mut=mut+1;
+tot_tdiv=[tot_tdiv; tdiv];
+end
+end
+end
+
+
+writematrix(tot_tdiv,"testfile.xlsx",'sheet','tdiv');

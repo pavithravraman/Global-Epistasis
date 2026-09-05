@@ -1,0 +1,10 @@
+function [value, isterminal, direction] = stopEvent(t, S, enzyme_functions)
+    threshold = 1e8; 
+
+    measure = [threshold - S(3); threshold - S(5); threshold - S(7)]; 
+
+    value = (measure(1)<=0) && (measure(2)<=0) && (measure(3)<=0);
+    isterminal = [1];
+    direction = [0]; 
+    end
+

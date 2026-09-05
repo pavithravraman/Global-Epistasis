@@ -1,0 +1,20 @@
+function[te1]=burst(k,on1,of1)
+
+E1=0;
+t1=0;
+
+while E1<k
+    
+    [Enew1,t11,ton1]=stoch(t1,on1,of1);
+   
+    for i1=(E1+1):(E1+Enew1)
+        te1(i1)=(t11)+(1029*i1/10);
+    end
+    
+    E1=E1+Enew1;
+    t1=t11+ton1;
+    
+end
+
+
+end

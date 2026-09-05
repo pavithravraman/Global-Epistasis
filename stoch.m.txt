@@ -1,0 +1,20 @@
+function[En,tw,ond]=stoch(time,to,tf)
+
+En=0;
+tw=time;
+
+while En==0
+    
+r1=rand;
+
+if r1<=0.5
+    tof=exprnd(60*tf);
+    tw=tw+tof;
+    En=0;
+else if r1>0.5     
+        ond=exprnd(to*60);
+        En=floor(ond*10/1029);
+    end
+end
+end
+end
